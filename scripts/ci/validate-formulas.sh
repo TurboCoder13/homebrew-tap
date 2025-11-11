@@ -71,8 +71,8 @@ echo ""
 echo "Installing from source for smoke test..."
 for formula in "${formulas[@]}"; do
   formula_name="$(basename "${formula}" .rb)"
-  echo "  Install from source: ${formula}"
-  brew install --build-from-source "${formula}"
+  echo "  Install from source: ${tap}/${formula_name}"
+  brew install --build-from-source "${tap}/${formula_name}"
   if command -v "${formula_name}" >/dev/null 2>&1; then
     echo "  Running ${formula_name} --version"
     "${formula_name}" --version || "${formula_name}" version || true
