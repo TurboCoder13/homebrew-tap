@@ -8,11 +8,13 @@ on:
     paths:
       - 'Formula/**'
       - '.github/workflows/validate-homebrew-formula.yml'
+      - 'scripts/**'
   push:
     branches: [ main ]
     paths:
       - 'Formula/**'
       - '.github/workflows/validate-homebrew-formula.yml'
+      - 'scripts/**'
 
 permissions:
   contents: read
