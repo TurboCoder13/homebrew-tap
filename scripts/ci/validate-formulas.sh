@@ -1,85 +1,51 @@
 #!/usr/bin/env bash
+# validate-formulas.sh - Validate all Homebrew formulas in this tap
+#
+# Performs: style checking, source installation, and verification
+
 set -euo pipefail
 
-# Validate all Homebrew formulas in this tap:
-# - Show environment details
-# - Run brew style on each formula (path-based)
-# - Ensure the tap is added
-# - Run brew audit on each formula (tap-qualified name)
-# - Install from source for a smoke test and try to print version
-
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
+source "$SCRIPT_DIR/../lib/common.sh"
+source "$SCRIPT_DIR/../lib/local-tap.sh"
 
-echo "Environment:"
-sw_vers || true
-brew --version || true
-ruby --version || true
+REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+
+# Show environment info
+log_info "Environment:"
+sw_vers 2>/dev/null || true
+brew --version 2>/dev/null || true
+ruby --version 2>/dev/null || true
 echo ""
 
-# Derive tap owner and name
-owner="${GITHUB_REPOSITORY_OWNER:-}"
-repo_full="${GITHUB_REPOSITORY:-}"
-repo_name=""
-
-if [[ -z "${owner}" && -n "${repo_full}" ]]; then
-  owner="${repo_full%%/*}"
-fi
-if [[ -z "${repo_full}" ]]; then
-  if git -C "${REPO_ROOT}" remote get-url origin >/dev/null 2>&1; then
-    remote_url="$(git -C "${REPO_ROOT}" remote get-url origin)"
-    if [[ "${remote_url}" =~ github.com[/:]([^/]+)/([^/]+)(\.git)?$ ]]; then
-      owner="${owner:-${BASH_REMATCH[1]}}"
-      repo_name="${BASH_REMATCH[2]}"
-    fi
-  fi
-fi
-
-repo_name="${repo_name:-${repo_full##*/}}"
-tap_short="${repo_name#homebrew-}"
-tap="${owner}/${tap_short}"
-
-echo "Using tap: ${tap}"
-echo ""
-
+# Find formulas
 shopt -s nullglob
-formulas=( "${REPO_ROOT}"/Formula/*.rb )
+formulas=("$REPO_ROOT"/Formula/*.rb)
 if [[ ${#formulas[@]} -eq 0 ]]; then
-  echo "No formulas found in ${REPO_ROOT}/Formula"
-  exit 1
+    log_error "No formulas found in $REPO_ROOT/Formula"
+    exit 1
 fi
 
-echo "Running brew style on formula files..."
+# Style check
+log_info "Running brew style on formula files..."
 for formula in "${formulas[@]}"; do
-  echo "  Style: ${formula}"
-  brew style "${formula}"
+    log_info "  Style: $formula"
+    brew style "$formula"
 done
 echo ""
 
-echo "Ensuring tap is available..."
-brew tap "${tap}" || true
+# Set up local tap and register cleanup
+setup_local_tap "$REPO_ROOT"
+register_tap_cleanup
 echo ""
 
-echo "Running brew audit on tap-qualified names..."
+# Install and verify each formula
+log_info "Installing from source for smoke test..."
 for formula in "${formulas[@]}"; do
-  formula_name="$(basename "${formula}" .rb)"
-  echo "  Audit: ${tap}/${formula_name}"
-  brew audit --strict --online "${tap}/${formula_name}"
+    formula_name="$(basename "$formula" .rb)"
+    install_local_formula "$formula_name"
+    verify_formula "$formula_name" || exit 1
 done
 echo ""
 
-echo "Installing from source for smoke test..."
-for formula in "${formulas[@]}"; do
-  formula_name="$(basename "${formula}" .rb)"
-  echo "  Install from source: ${tap}/${formula_name}"
-  brew install --build-from-source "${tap}/${formula_name}"
-  if command -v "${formula_name}" >/dev/null 2>&1; then
-    echo "  Running ${formula_name} --version"
-    "${formula_name}" --version || "${formula_name}" version || true
-  fi
-done
-echo ""
-
-echo "Validation completed successfully."
-
-
+log_success "Validation completed successfully."
