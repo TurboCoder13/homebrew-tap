@@ -1,74 +1,51 @@
 #!/usr/bin/env bash
+# validate-formulas.sh - Validate all Homebrew formulas in this tap
+#
+# Performs: style checking, source installation, and verification
+
 set -euo pipefail
 
-# Validate all Homebrew formulas in this tap:
-# - Show environment details
-# - Run brew style on each formula (linting)
-# - Set up local tap for testing
-# - Install from source for a smoke test
-# - Verify the installed command works
-
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-REPO_ROOT="$(cd "${SCRIPT_DIR}/../.." && pwd)"
+source "$SCRIPT_DIR/../lib/common.sh"
+source "$SCRIPT_DIR/../lib/local-tap.sh"
 
-echo "Environment:"
-sw_vers || true
-brew --version || true
-ruby --version || true
+REPO_ROOT="$(cd "$SCRIPT_DIR/../.." && pwd)"
+
+# Show environment info
+log_info "Environment:"
+sw_vers 2>/dev/null || true
+brew --version 2>/dev/null || true
+ruby --version 2>/dev/null || true
 echo ""
 
+# Find formulas
 shopt -s nullglob
-formulas=( "${REPO_ROOT}"/Formula/*.rb )
+formulas=("$REPO_ROOT"/Formula/*.rb)
 if [[ ${#formulas[@]} -eq 0 ]]; then
-  echo "No formulas found in ${REPO_ROOT}/Formula"
-  exit 1
+    log_error "No formulas found in $REPO_ROOT/Formula"
+    exit 1
 fi
 
-echo "Running brew style on formula files..."
+# Style check
+log_info "Running brew style on formula files..."
 for formula in "${formulas[@]}"; do
-  echo "  Style: ${formula}"
-  brew style "${formula}"
+    log_info "  Style: $formula"
+    brew style "$formula"
 done
 echo ""
 
-# Set up local tap by symlinking the repo to Homebrew's tap directory
-TAP_NAME="local/test-tap"
-TAP_DIR="$(brew --repository)/Library/Taps/local/homebrew-test-tap"
-
-echo "Setting up local tap at ${TAP_DIR}..."
-mkdir -p "$(dirname "${TAP_DIR}")"
-rm -rf "${TAP_DIR}"
-ln -sf "${REPO_ROOT}" "${TAP_DIR}"
+# Set up local tap and register cleanup
+setup_local_tap "$REPO_ROOT"
+register_tap_cleanup
 echo ""
 
-echo "Installing from source for smoke test..."
+# Install and verify each formula
+log_info "Installing from source for smoke test..."
 for formula in "${formulas[@]}"; do
-  formula_name="$(basename "${formula}" .rb)"
-  echo "  Install from source: ${TAP_NAME}/${formula_name}"
-  # Note: pydantic_core wheels may trigger dylib ID warnings that cause non-zero exit
-  # The install still succeeds, so we verify by checking the binary works
-  brew install --build-from-source "${TAP_NAME}/${formula_name}" || true
-
-  # Verify the installation actually worked
-  if command -v "${formula_name}" >/dev/null 2>&1; then
-    echo "  Running ${formula_name} --version"
-    if "${formula_name}" --version; then
-      echo "  ✓ ${formula_name} installed successfully"
-    else
-      echo "  ✗ ${formula_name} --version failed"
-      exit 1
-    fi
-  else
-    echo "  ✗ ${formula_name} command not found after install"
-    exit 1
-  fi
+    formula_name="$(basename "$formula" .rb)"
+    install_local_formula "$formula_name"
+    verify_formula "$formula_name" || exit 1
 done
 echo ""
 
-# Cleanup
-echo "Cleaning up local tap..."
-rm -rf "${TAP_DIR}"
-rmdir "$(dirname "${TAP_DIR}")" 2>/dev/null || true
-echo ""
-
-echo "Validation completed successfully."
+log_success "Validation completed successfully."

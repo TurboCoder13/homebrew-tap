@@ -43,40 +43,17 @@ jobs:
     if: needs.validate-formula.outputs.has_drift == 'true'
     runs-on: ubuntu-latest
     steps:
-      - name: Create issue for version drift
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
-        with:
-          script: |
-            const formulaVersion = '${{ needs.validate-formula.outputs.formula_version }}';
-            const pypiVersion = '${{ needs.validate-formula.outputs.pypi_version }}';
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
-            const issues = await github.rest.issues.listForRepo({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              state: 'open',
-              labels: 'version-drift'
-            });
-
-            const existingIssue = issues.data.find(issue =>
-              issue.title.includes('Version drift detected')
-            );
-
-            if (existingIssue) {
-              await github.rest.issues.createComment({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                issue_number: existingIssue.number,
-                body: `## Updated Version Check\n\n- Formula: \`${formulaVersion}\`\n- PyPI: \`${pypiVersion}\`\n\nChecked: ${new Date().toISOString()}`
-              });
-            } else {
-              await github.rest.issues.create({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                title: `Version drift detected: formula ${formulaVersion} vs PyPI ${pypiVersion}`,
-                body: `## Version Drift Detected\n\n| Source | Version |\n|--------|--------|\n| Formula | \`${formulaVersion}\` |\n| PyPI | \`${pypiVersion}\` |\n\nThe formula should be automatically updated when a new release is published. Check the py-lintro release workflow if this persists.\n\n---\n*Auto-created by scheduled validation.*`,
-                labels: ['version-drift', 'automated']
-              });
-            }
+      - name: Report version drift
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          source scripts/lib/github-issues.sh
+          report_version_drift \
+            "${{ needs.validate-formula.outputs.formula_version }}" \
+            "${{ needs.validate-formula.outputs.pypi_version }}"
 
   notify-failure:
     name: Notify on Failure
@@ -84,25 +61,13 @@ jobs:
     if: failure()
     runs-on: ubuntu-latest
     steps:
-      - name: Create issue for validation failure
-        uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
-        with:
-          script: |
-            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
 
-            const issues = await github.rest.issues.listForRepo({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              state: 'open',
-              labels: 'validation-failure'
-            });
-
-            if (!issues.data.find(i => i.title.includes('Formula validation failed'))) {
-              await github.rest.issues.create({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                title: 'Formula validation failed in scheduled check',
-                body: `## Scheduled Validation Failed\n\n[View logs](${runUrl})\n\nPossible causes:\n- Upstream dependency changes\n- Homebrew API changes\n- macOS runner changes\n\n---\n*Auto-created by scheduled validation.*`,
-                labels: ['validation-failure', 'automated', 'bug']
-              });
-            }
+      - name: Report validation failure
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          source scripts/lib/github-issues.sh
+          report_validation_failure \
+            "${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"
