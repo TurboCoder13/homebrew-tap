@@ -22,10 +22,6 @@
       "automerge": false
     }
   ],
-  "github-actions": {
-    "enabled": true,
-    "pinDigests": true
-  },
   "schedule": ["after 22:00", "before 23:00"],
   "timezone": "UTC",
   "labels": ["dependencies"],

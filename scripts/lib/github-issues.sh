@@ -94,7 +94,9 @@ report_validation_failure() {
     existing_issue=$(find_open_issue "validation-failure")
 
     if [[ -n "$existing_issue" ]]; then
-        log_info "Validation failure issue already exists (#$existing_issue)"
+        log_info "Updating existing validation failure issue #$existing_issue"
+        add_issue_comment "$existing_issue" \
+            "Validation still failing as of $(date -u +"%Y-%m-%dT%H:%M:%SZ"). [View logs]($run_url)"
         return 0
     fi
 

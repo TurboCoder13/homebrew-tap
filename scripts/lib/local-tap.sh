@@ -74,7 +74,7 @@ install_local_formula() {
     # Note: pydantic_core wheels may trigger dylib ID warnings (non-zero exit)
     # Install continues successfully, so we verify by checking the binary
     if brew install --build-from-source "$full_name"; then
-        log_success "$formula installed successfully"
+        log_success "$full_name installed successfully"
         return 0
     else
         log_warning "brew install returned non-zero (may be dylib warnings)"

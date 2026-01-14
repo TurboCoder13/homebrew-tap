@@ -60,5 +60,5 @@ is_ci() {
 get_repo_root() {
     local script_dir
     script_dir="$(cd "$(dirname "${BASH_SOURCE[1]:-${BASH_SOURCE[0]}}")" && pwd)"
-    cd "$script_dir" && git rev-parse --show-toplevel 2>/dev/null || dirname "$(dirname "$script_dir")"
+    (cd "$script_dir" && git rev-parse --show-toplevel 2>/dev/null) || dirname "$(dirname "$script_dir")"
 }

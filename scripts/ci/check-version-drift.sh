@@ -20,9 +20,9 @@ if [[ ! -f "$FORMULA_FILE" ]]; then
     exit 1
 fi
 
-# Extract formula version from URL pattern
+# Extract formula version from URL pattern (supports pre-release like 1.0.0rc1)
 FORMULA_VERSION=$(grep -E '^\s+url\s+"https://files.pythonhosted.org' "$FORMULA_FILE" | \
-    sed -E 's/.*-([0-9]+\.[0-9]+\.[0-9]+)\.tar\.gz.*/\1/')
+    sed -E 's/.*-([0-9]+\.[0-9]+\.[0-9]+[^"]*)\.tar\.gz.*/\1/')
 
 if [[ -z "$FORMULA_VERSION" ]]; then
     log_error "Could not extract version from formula"
@@ -30,10 +30,8 @@ if [[ -z "$FORMULA_VERSION" ]]; then
 fi
 
 # Get latest PyPI version
-PYPI_VERSION=$(curl -sf "https://pypi.org/pypi/$PYPI_PACKAGE/json" | \
-    python3 -c "import sys, json; print(json.load(sys.stdin)['info']['version'])")
-
-if [[ -z "$PYPI_VERSION" ]]; then
+if ! PYPI_VERSION=$(curl -sf "https://pypi.org/pypi/$PYPI_PACKAGE/json" | \
+    python3 -c "import sys, json; print(json.load(sys.stdin)['info']['version'])"); then
     log_error "Could not fetch PyPI version"
     exit 1
 fi

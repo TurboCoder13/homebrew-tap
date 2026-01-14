@@ -178,7 +178,7 @@ class Lintro < Formula
     # Now install pydantic_core wheel (pip is available now)
     resource("pydantic_core").stage do
       wheel = Pathname.pwd.children.find { |f| f.extname == ".whl" }
-      system "python3.13", "-m", "pip", "--python=#{libexec}/bin/python",
+      system libexec/"bin/python", "-m", "pip",
              "install", "--no-deps", "--ignore-installed", wheel.to_s
     end
 
