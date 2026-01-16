@@ -9,8 +9,8 @@ class Lintro < Formula
 
   desc "Unified CLI tool for code formatting, linting, and quality assurance"
   homepage "https://github.com/TurboCoder13/py-lintro"
-  url "https://files.pythonhosted.org/packages/f6/f3/032d6fae5a633cecf2859a06a80002465912a9d099fb5dd289fb3352d84e/lintro-0.25.0.tar.gz"
-  sha256 "d70afeb49ac547eb2b0c3ea066f0e950955a2e978ba09ae0c87d6f8741083b18"
+  url "https://files.pythonhosted.org/packages/7f/dd/75719e01109aad86820c756d85710d81edf7e8bce40ee49f3784ae37104a/lintro-0.26.0.tar.gz"
+  sha256 "291b9f1948ab67319f475fa1132835f1e7d611d14491cea31e1866e21e54bfbc"
   license "MIT"
 
   livecheck do
@@ -23,7 +23,6 @@ class Lintro < Formula
   depends_on "bandit"
   depends_on "black"
   depends_on "hadolint"
-  depends_on "libyaml"
   depends_on "mypy"
   depends_on "prettier"
   depends_on "python@3.13"
@@ -187,6 +186,7 @@ class Lintro < Formula
     sha256 "5ae11c259c17b0701618a20c3da343a3eb98b3bc4b5a83d31cdd94f5ebdced8d"
   end
 
+
   # pydantic_core requires Rust to build - use platform-specific wheels
   resource "pydantic_core" do
     on_arm do
@@ -198,6 +198,7 @@ class Lintro < Formula
       sha256 "941103c9be18ac8daf7b7adca8228f8ed6bb7a1849020f643b3a14d15b1924d9"
     end
   end
+
 
   def install
     venv = virtualenv_create(libexec, "python3.13")
