@@ -9,8 +9,8 @@ class Lintro < Formula
 
   desc "Unified CLI tool for code formatting, linting, and quality assurance"
   homepage "https://github.com/TurboCoder13/py-lintro"
-  url "https://files.pythonhosted.org/packages/7f/dd/75719e01109aad86820c756d85710d81edf7e8bce40ee49f3784ae37104a/lintro-0.26.0.tar.gz"
-  sha256 "291b9f1948ab67319f475fa1132835f1e7d611d14491cea31e1866e21e54bfbc"
+  url "https://files.pythonhosted.org/packages/42/5e/a1d1bf7f33577b371ed685a4898c34ad3301d5f34bd9e642af681aa9128e/lintro-0.27.0.tar.gz"
+  sha256 "f25a8662a72cda8bede83aeb9a011740906ee5a71693af90e36f3fee9e59648d"
   license "MIT"
 
   livecheck do
@@ -27,6 +27,7 @@ class Lintro < Formula
   depends_on "prettier"
   depends_on "python@3.13"
   depends_on "ruff"
+  depends_on "shfmt"
   depends_on "yamllint"
 
   # Pure Python library dependencies
