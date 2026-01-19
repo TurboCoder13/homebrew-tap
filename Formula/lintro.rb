@@ -9,8 +9,8 @@ class Lintro < Formula
 
   desc "Unified CLI tool for code formatting, linting, and quality assurance"
   homepage "https://github.com/TurboCoder13/py-lintro"
-  url "https://files.pythonhosted.org/packages/26/dc/f134be2275dd327d12b6fd486890d349bfc5de0d2762afddca7582c59a65/lintro-0.29.0.tar.gz"
-  sha256 "72ee2f9914d6635ef8854754042b537d428a655d2e0aca60dae1d87c444d6ef7"
+  url "https://files.pythonhosted.org/packages/a5/1e/cc5e88ba854eff9e40ba8f0191445e4e1945150ad36f4b1aceefe6f3485b/lintro-0.30.0.tar.gz"
+  sha256 "7340e716e5c824cbdf786bd7de90c779d0e5498966317e8163106cfe8a62a0ba"
   license "MIT"
 
   livecheck do
@@ -31,6 +31,7 @@ class Lintro < Formula
   depends_on "semgrep"
   depends_on "shellcheck"
   depends_on "shfmt"
+  depends_on "sqlfluff"
   depends_on "yamllint"
 
   # Pure Python library dependencies
@@ -236,6 +237,7 @@ class Lintro < Formula
         - semgrep - Security scanner
         - shellcheck - Shell script analyzer
         - shfmt - Shell script formatter
+        - sqlfluff - SQL linter and formatter
 
       Bundled tools:
         - darglint - Python docstring linter
