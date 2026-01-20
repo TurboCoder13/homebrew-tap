@@ -9,8 +9,8 @@ class Lintro < Formula
 
   desc "Unified CLI tool for code formatting, linting, and quality assurance"
   homepage "https://github.com/TurboCoder13/py-lintro"
-  url "https://files.pythonhosted.org/packages/95/0e/3810fbb513662a4103fc43ef2948746c08bce738d558043420a768eec58c/lintro-0.31.0.tar.gz"
-  sha256 "ec8bea0967981cc5e6e2d85e28a234953969585218da4199b3e16ab6443fab5f"
+  url "https://files.pythonhosted.org/packages/cc/2b/bdc6659a6c43dfaa6630c2e19496c39b607a54b91a36de9819dde9804d76/lintro-0.32.0.tar.gz"
+  sha256 "7714ee01ddc007737a7435022ee17f88ebbb0859d104f12855d5ce4e6a172bc4"
   license "MIT"
 
   livecheck do
@@ -27,6 +27,7 @@ class Lintro < Formula
   depends_on "mypy"
   depends_on "prettier"
   depends_on "python@3.13"
+  depends_on "gitleaks"
   depends_on "ruff"
   depends_on "semgrep"
   depends_on "shellcheck"
@@ -233,6 +234,7 @@ class Lintro < Formula
         - bandit - Python security linter
         - hadolint - Dockerfile linter
         - actionlint - GitHub Actions workflow linter
+        - gitleaks - Secret detection in git repos
         - prettier - Code formatter
         - yamllint - YAML linter
         - semgrep - Security scanner
