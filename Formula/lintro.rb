@@ -9,8 +9,8 @@ class Lintro < Formula
 
   desc "Unified CLI tool for code formatting, linting, and quality assurance"
   homepage "https://github.com/TurboCoder13/py-lintro"
-  url "https://files.pythonhosted.org/packages/64/83/93118694ffae7685ab8470e04a56633a780770ffe9b5a565dc77b10e81ab/lintro-0.34.0.tar.gz"
-  sha256 "301811033ceffba15fbd5d0a8bce3e9c4dfcba3b21eabcbcf402a594466797e9"
+  url "https://files.pythonhosted.org/packages/80/4c/d3b93eea0bc8770d4619d90203df4a8dcddb92939e82698d1fc583d71059/lintro-0.35.0.tar.gz"
+  sha256 "78c69562acab9b31aa8b7048a906636ae814109f99d9ec3d2c1700ce7ca090ed"
   license "MIT"
 
   livecheck do
@@ -21,14 +21,17 @@ class Lintro < Formula
   # CLI tools installed via Homebrew
   depends_on "actionlint"
   depends_on "bandit"
+  depends_on "biome"
   depends_on "black"
   depends_on "gitleaks"
   depends_on "hadolint"
   depends_on "libyaml"
+  depends_on "markdownlint-cli2"
   depends_on "mypy"
   depends_on "prettier"
   depends_on "python@3.13"
   depends_on "ruff"
+  depends_on "rust" # provides clippy, rustfmt, and cargo for cargo-audit
   depends_on "semgrep"
   depends_on "shellcheck"
   depends_on "shfmt"
@@ -232,9 +235,13 @@ class Lintro < Formula
         - black - Python code formatter
         - mypy - Python type checker
         - bandit - Python security linter
+        - biome - JavaScript/TypeScript linter and formatter
+        - clippy - Rust linter (via rust)
+        - rustfmt - Rust formatter (via rust)
         - hadolint - Dockerfile linter
         - actionlint - GitHub Actions workflow linter
         - gitleaks - Secret detection in git repos
+        - markdownlint-cli2 - Markdown linter
         - prettier - Code formatter
         - yamllint - YAML linter
         - semgrep - Security scanner
@@ -245,6 +252,10 @@ class Lintro < Formula
 
       Bundled tools:
         - darglint - Python docstring linter
+
+      Optional (install manually via cargo):
+        - cargo-audit - Rust dependency vulnerability scanner
+          Install with: cargo install cargo-audit
 
       Get started:
         lintro check          # Check files for issues
