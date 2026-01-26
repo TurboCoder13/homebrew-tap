@@ -9,8 +9,8 @@ class Lintro < Formula
 
   desc "Unified CLI tool for code formatting, linting, and quality assurance"
   homepage "https://github.com/TurboCoder13/py-lintro"
-  url "https://files.pythonhosted.org/packages/3f/d4/a80e3abdebf8617f61c208009eed4705047e96b1e7cb15713b62e7ec6dd8/lintro-0.37.14.tar.gz"
-  sha256 "703b8473c93448b37a72162dbc43c09a07fa4a31d64a70b5f15d953cc5a412a8"
+  url "https://files.pythonhosted.org/packages/17/d3/813a7e5cd7c51b78a7554c54c5bb3c399628294ce466181859df6e5c1a2d/lintro-0.38.0.tar.gz"
+  sha256 "9e1938b2fdda1e69bac21f216d6d2ed33b866503dfc2f73aafcce74e50e6ca7d"
   license "MIT"
 
   livecheck do
@@ -73,6 +73,11 @@ class Lintro < Formula
   resource "defusedxml" do
     url "https://files.pythonhosted.org/packages/0f/d5/c66da9b79e5bdb124974bfe172b4daf3c984ebd9c2a06e2b8a4dc7331c72/defusedxml-0.7.1.tar.gz"
     sha256 "1bb3032db185915b62d7c6209c5a8792be6a32ab2fedacc84e01b52c51aa3e69"
+  end
+
+  resource "docstring-parser-fork" do
+    url "https://files.pythonhosted.org/packages/66/bf/27f9cab2f0cd1d17a4420572088bbc19f36d726fbcf165edf226a8926dbc/docstring_parser_fork-0.0.14.tar.gz"
+    sha256 "a2743a63d8d36c09650594f7b4ab5b2758fee8629dcf794d1b221b23179baa5c"
   end
 
   resource "h11" do
@@ -189,10 +194,10 @@ class Lintro < Formula
     url "https://files.pythonhosted.org/packages/55/e3/70399cb7dd41c10ac53367ae42139cf4b1ca5f36bb3dc6c9d33acdb43655/typing_inspection-0.4.2.tar.gz"
     sha256 "ba561c48a67c5958007083d386c3295464928b01faa735ab8547c5692e87f464"
   end
-  # darglint requires poetry to build - use wheel
-  resource "darglint" do
-    url "https://files.pythonhosted.org/packages/69/28/85d1e0396d64422c5218d68e5cdcc53153aa8a2c83c7dbc3ee1502adf3a1/darglint-1.8.1-py3-none-any.whl"
-    sha256 "5ae11c259c17b0701618a20c3da343a3eb98b3bc4b5a83d31cdd94f5ebdced8d"
+  # pydoclint - use wheel for consistency
+  resource "pydoclint" do
+    url "https://files.pythonhosted.org/packages/87/6f/cc2b231dc78d8c3aaa674a676db190b8f8071c50134af8f8cf39b9b8e8df/pydoclint-0.8.3-py3-none-any.whl"
+    sha256 "5fc9b82d0d515afce0908cb70e8ff695a68b19042785c248c4f227ad66b4a164"
   end
 
   # pydantic_core requires Rust to build - use platform-specific wheels
@@ -251,7 +256,7 @@ class Lintro < Formula
         - taplo - TOML linter and formatter
 
       Bundled tools:
-        - darglint - Python docstring linter
+        - pydoclint - Python docstring linter
 
       Optional (install manually via cargo):
         - cargo-audit - Rust dependency vulnerability scanner
