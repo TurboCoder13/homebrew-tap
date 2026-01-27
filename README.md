@@ -46,6 +46,12 @@ brew install <formula-name>
     <td>Unified CLI for code formatting, linting, and quality assurance</td>
     <td><code>brew install lintro</code></td>
   </tr>
+  <tr>
+    <td width="50">📦</td>
+    <td><strong><a href="https://github.com/lgtm-hq/py-lintro">lintro-bin</a></strong></td>
+    <td>Pre-built binary (faster install, no dependencies)</td>
+    <td><code>brew install lintro-bin</code> <em>(coming soon)</em></td>
+  </tr>
 </table>
 
 ---
