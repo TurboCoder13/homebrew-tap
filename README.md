@@ -1,53 +1,107 @@
-# Homebrew Tap for Lintro
+<p align="center">
+  <img src="https://brew.sh/assets/img/homebrew-256x256.png" width="100" height="100" alt="Homebrew">
+</p>
 
-This repository contains the Homebrew formula for [lintro](https://github.com/lgtm-hq/py-lintro), a unified CLI tool for code formatting, linting, and quality assurance.
+<h1 align="center">LGTM Homebrew Tap</h1>
 
-## Installation
+<p align="center">
+  <strong>Official Homebrew tap for LGTM tools and utilities</strong>
+</p>
 
-To install lintro via Homebrew:
+<p align="center">
+  Install and manage LGTM developer tools on macOS with a single command.
+</p>
+
+<p align="center">
+  <a href="#-installation">Installation</a> •
+  <a href="#-available-formulae">Formulae</a> •
+  <a href="#-upgrading">Upgrading</a> •
+  <a href="#-contributing">Contributing</a>
+</p>
+
+---
+
+## 🚀 Installation
+
+Add the tap to your Homebrew:
 
 ```bash
 brew tap lgtm-hq/tap
-brew install lintro
 ```
 
-## Upgrading
-
-To upgrade to the latest version:
+Then install any available formula:
 
 ```bash
-brew update
-brew upgrade lintro
+brew install <formula-name>
 ```
 
-## What's Included
+---
 
-Lintro includes the following tools:
-- **ruff** - Python linter and formatter
-- **hadolint** - Dockerfile linter
-- **actionlint** - GitHub Actions workflow linter
-- **prettier** - Code formatter
-- **bandit** - Python security linter
-- **black** - Python code formatter
-- **darglint** - Python docstring linter
-- **yamllint** - YAML linter
+## 📦 Available Formulae
 
-## Usage
+<table>
+  <tr>
+    <td width="50">🔧</td>
+    <td><strong><a href="https://github.com/lgtm-hq/py-lintro">lintro</a></strong></td>
+    <td>Unified CLI for code formatting, linting, and quality assurance</td>
+    <td><code>brew install lintro</code></td>
+  </tr>
+  <tr>
+    <td width="50">📦</td>
+    <td><strong><a href="https://github.com/lgtm-hq/py-lintro">lintro-bin</a></strong></td>
+    <td>Pre-built binary (faster install, no dependencies)</td>
+    <td><code>brew install lintro-bin</code> <em>(coming soon)</em></td>
+  </tr>
+</table>
 
-After installation, you can use lintro:
+---
+
+## ⬆️ Upgrading
+
+Update Homebrew and upgrade all formulae:
 
 ```bash
-lintro check          # Check files for issues
-lintro format         # Auto-fix issues
-lintro list-tools     # View available tools
-lintro --version      # Check version
+brew update && brew upgrade
 ```
 
-## Documentation
+Or upgrade a specific formula:
 
-For more information, visit the [lintro documentation](https://github.com/lgtm-hq/py-lintro/tree/main/docs).
+```bash
+brew upgrade <formula-name>
+```
 
-## Formula Maintenance
+---
 
-This formula is automatically updated when new versions are released to PyPI. The update process is handled by GitHub Actions workflows in the [py-lintro repository](https://github.com/lgtm-hq/py-lintro).
+## 📋 Requirements
 
+| Requirement | Version |
+| ----------- | ------- |
+| macOS       | 10.15+  |
+| Homebrew    | Latest  |
+
+---
+
+## 🔄 Formula Maintenance
+
+Formulae are automatically updated when new versions are released. The update
+process is handled by GitHub Actions.
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for
+guidelines.
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE)
+file for details.
+
+---
+
+<p align="center">
+  <a href="https://github.com/lgtm-hq">LGTM</a> •
+  <a href="https://github.com/lgtm-hq/homebrew-tap/issues">Issues</a> •
+  <a href="CONTRIBUTING.md">Contributing</a>
+</p>
