@@ -8,9 +8,9 @@ class Lintro < Formula
   include Language::Python::Virtualenv
 
   desc "Unified CLI tool for code formatting, linting, and quality assurance"
-  homepage "https://github.com/TurboCoder13/py-lintro"
-  url "https://files.pythonhosted.org/packages/47/10/02fda2ac17a3f417364f5bfaf206f4dea30e1ce92bcfee6a4f8be954aaea/lintro-0.40.1.tar.gz"
-  sha256 "488f3e0034481e84c3664378965b33621d2da5e11e681bb84f5522fad3b28c7c"
+  homepage "https://github.com/lgtm-hq/py-lintro"
+  url "https://files.pythonhosted.org/packages/f2/bc/6bc9e4bb2b6146472512363a7c13cbce7ca6fb7f3bbf1ba59a9bbeec4971/lintro-0.40.2.tar.gz"
+  sha256 "1d0aa8f1685e25944af4140d1a56783283143c8df9b874678439fa4f23eccd0e"
   license "MIT"
 
   livecheck do
@@ -136,8 +136,8 @@ class Lintro < Formula
   end
 
   resource "pip" do
-    url "https://files.pythonhosted.org/packages/fe/6e/74a3f0179a4a73a53d66ce57fdb4de0080a8baa1de0063de206d6167acc2/pip-25.3.tar.gz"
-    sha256 "8d0538dbbd7babbd207f261ed969c65de439f6bc9e5dbd3b3b9a77f25d95f343"
+    url "https://files.pythonhosted.org/packages/20/16/650289cd3f43d5a2fadfd98c68bd1e1e7f2550a1a5326768cddfbcedb2c5/pip-25.2.tar.gz"
+    sha256 "578283f006390f85bb6282dffb876454593d637f5d1be494b5202ce4877e71f2"
   end
 
   resource "platformdirs" do
@@ -267,7 +267,7 @@ class Lintro < Formula
         lintro format         # Auto-fix issues
         lintro list-tools     # View available tools
 
-      Documentation: https://github.com/TurboCoder13/py-lintro/tree/main/docs
+      Documentation: https://github.com/lgtm-hq/py-lintro/tree/main/docs
     EOS
   end
 
