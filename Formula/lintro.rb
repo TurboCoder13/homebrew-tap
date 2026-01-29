@@ -8,9 +8,9 @@ class Lintro < Formula
   include Language::Python::Virtualenv
 
   desc "Unified CLI tool for code formatting, linting, and quality assurance"
-  homepage "https://github.com/lgtm-hq/py-lintro"
-  url "https://files.pythonhosted.org/packages/17/d3/813a7e5cd7c51b78a7554c54c5bb3c399628294ce466181859df6e5c1a2d/lintro-0.38.0.tar.gz"
-  sha256 "9e1938b2fdda1e69bac21f216d6d2ed33b866503dfc2f73aafcce74e50e6ca7d"
+  homepage "https://github.com/TurboCoder13/py-lintro"
+  url "https://files.pythonhosted.org/packages/47/10/02fda2ac17a3f417364f5bfaf206f4dea30e1ce92bcfee6a4f8be954aaea/lintro-0.40.1.tar.gz"
+  sha256 "488f3e0034481e84c3664378965b33621d2da5e11e681bb84f5522fad3b28c7c"
   license "MIT"
 
   livecheck do
@@ -131,8 +131,8 @@ class Lintro < Formula
   end
 
   resource "pathspec" do
-    url "https://files.pythonhosted.org/packages/4c/b2/bb8e495d5262bfec41ab5cb18f522f1012933347fb5d9e62452d446baca2/pathspec-1.0.3.tar.gz"
-    sha256 "bac5cf97ae2c2876e2d25ebb15078eb04d76e4b98921ee31c6f85ade8b59444d"
+    url "https://files.pythonhosted.org/packages/fa/36/e27608899f9b8d4dff0617b2d9ab17ca5608956ca44461ac14ac48b44015/pathspec-1.0.4.tar.gz"
+    sha256 "0210e2ae8a21a9137c0d470578cb0e595af87edaa6ebf12ff176f14a02e0e645"
   end
 
   resource "pip" do
@@ -267,7 +267,7 @@ class Lintro < Formula
         lintro format         # Auto-fix issues
         lintro list-tools     # View available tools
 
-      Documentation: https://github.com/lgtm-hq/py-lintro/tree/main/docs
+      Documentation: https://github.com/TurboCoder13/py-lintro/tree/main/docs
     EOS
   end
 
