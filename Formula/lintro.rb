@@ -21,13 +21,13 @@ class Lintro < Formula
   # CLI tools installed via Homebrew
   depends_on "actionlint"
   depends_on "bandit"
-  depends_on "node"  # Required for oxlint and oxfmt via npm
   depends_on "black"
   depends_on "gitleaks"
   depends_on "hadolint"
   depends_on "libyaml"
   depends_on "markdownlint-cli2"
   depends_on "mypy"
+  depends_on "node" # Required for oxlint and oxfmt via npm
   depends_on "prettier"
   depends_on "python@3.13"
   depends_on "ruff"
@@ -231,7 +231,7 @@ class Lintro < Formula
     venv.pip_install_and_link buildpath
 
     # Install oxlint and oxfmt via npm (node dependency provides npm)
-    system "npm", "install", "-g", "--prefix", libexec, "oxlint", "oxfmt"
+    system "npm", "install", *std_npm_args, "oxlint", "oxfmt"
     bin.install_symlink Dir[libexec/"bin/oxlint"]
     bin.install_symlink Dir[libexec/"bin/oxfmt"]
   end
