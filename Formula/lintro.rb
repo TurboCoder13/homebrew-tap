@@ -9,8 +9,8 @@ class Lintro < Formula
 
   desc "Unified CLI tool for code formatting, linting, and quality assurance"
   homepage "https://github.com/lgtm-hq/py-lintro"
-  url "https://files.pythonhosted.org/packages/17/87/1a5296bf2083d2ffaab5b5d82bf07b05fff97f35d1307d8d561e3822bcb3/lintro-0.42.5.tar.gz"
-  sha256 "91b1fd5b29f75ecfe650e2f005138374d1af59b05b79a7475d92d2f53b753c1b"
+  url "https://files.pythonhosted.org/packages/de/f0/f5d5413e2e981023f3884fff66b1d9010738a5f8bda76a08efe090de2fdb/lintro-0.42.6.tar.gz"
+  sha256 "4abcd9e3e4016829ec3f528d46d1d6bbd22d59c6c10220541bc4943c384ab898"
   license "MIT"
 
   livecheck do
@@ -247,7 +247,7 @@ class Lintro < Formula
         - actionlint - GitHub Actions workflow linter
         - gitleaks - Secret detection in git repos
         - markdownlint-cli2 - Markdown linter
-        - oxlint - JavaScript/TypeScript linter (Rust-based)
+        - oxlint - JavaScript/TypeScript linter
         - oxfmt - JavaScript/TypeScript formatter
         - prettier - Code formatter
         - yamllint - YAML linter
