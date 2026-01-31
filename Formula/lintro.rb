@@ -9,8 +9,8 @@ class Lintro < Formula
 
   desc "Unified CLI tool for code formatting, linting, and quality assurance"
   homepage "https://github.com/lgtm-hq/py-lintro"
-  url "https://files.pythonhosted.org/packages/1e/0c/3454afe9a22ef629b7e09ae68288d16b578dd891392f540b8ad11b69e8ee/lintro-0.41.0.tar.gz"
-  sha256 "f95bef6555435bd47cf82a403e28c5e9205044f7d15c8f873231721d3f368972"
+  url "https://files.pythonhosted.org/packages/51/5a/98a0bfcdfacde9b677cff5ee7b3a369b9684abfff0185389abf178e03715/lintro-0.42.1.tar.gz"
+  sha256 "bb9a06ccb238a7d8dc3db9b00ed4608d514d146b289ca7b3b1136e3664923a43"
   license "MIT"
 
   livecheck do
@@ -21,7 +21,7 @@ class Lintro < Formula
   # CLI tools installed via Homebrew
   depends_on "actionlint"
   depends_on "bandit"
-  depends_on "biome"
+  depends_on "node"  # Required for oxlint and oxfmt via npm
   depends_on "black"
   depends_on "gitleaks"
   depends_on "hadolint"
@@ -156,8 +156,8 @@ class Lintro < Formula
   end
 
   resource "pytokens" do
-    url "https://files.pythonhosted.org/packages/e5/16/4b9cfd90d55e66ffdb277d7ebe3bc25250c2311336ec3fc73b2673c794d5/pytokens-0.4.0.tar.gz"
-    sha256 "6b0b03e6ea7c9f9d47c5c61164b69ad30f4f0d70a5d9fe7eac4d19f24f77af2d"
+    url "https://files.pythonhosted.org/packages/b6/34/b4e015b99031667a7b960f888889c5bd34ef585c85e1cb56a594b92836ac/pytokens-0.4.1.tar.gz"
+    sha256 "292052fe80923aae2260c073f822ceba21f3872ced9a68bb7953b348e561179a"
   end
 
   resource "pyyaml" do
@@ -229,6 +229,11 @@ class Lintro < Formula
 
     # Install lintro itself
     venv.pip_install_and_link buildpath
+
+    # Install oxlint and oxfmt via npm (node dependency provides npm)
+    system "npm", "install", "-g", "--prefix", libexec, "oxlint", "oxfmt"
+    bin.install_symlink Dir[libexec/"bin/oxlint"]
+    bin.install_symlink Dir[libexec/"bin/oxfmt"]
   end
 
   def caveats
@@ -240,7 +245,6 @@ class Lintro < Formula
         - black - Python code formatter
         - mypy - Python type checker
         - bandit - Python security linter
-        - biome - JavaScript/TypeScript linter and formatter
         - clippy - Rust linter (via rust)
         - rustfmt - Rust formatter (via rust)
         - hadolint - Dockerfile linter
@@ -254,6 +258,10 @@ class Lintro < Formula
         - shfmt - Shell script formatter
         - sqlfluff - SQL linter and formatter
         - taplo - TOML linter and formatter
+
+      Included tools (installed via npm):
+        - oxlint - JavaScript/TypeScript linter (Rust-based)
+        - oxfmt - JavaScript/TypeScript formatter
 
       Bundled tools:
         - pydoclint - Python docstring linter
