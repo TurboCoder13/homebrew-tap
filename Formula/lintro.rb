@@ -9,8 +9,8 @@ class Lintro < Formula
 
   desc "Unified CLI tool for code formatting, linting, and quality assurance"
   homepage "https://github.com/lgtm-hq/py-lintro"
-  url "https://files.pythonhosted.org/packages/cb/19/03c3b84bd621f38b8fb9ac554e7577d36d1b25dd4fd2b726aefc8ddaf55c/lintro-0.50.2.tar.gz"
-  sha256 "c131796cb0d309b8df477dda7fee875d67b2f546eed32d69de9017abedd8844c"
+  url "https://files.pythonhosted.org/packages/d4/0f/63edd3272a8f8d71128bf2fc676ddaec1580c43bdd35097213bc46a6c686/lintro-0.51.0.tar.gz"
+  sha256 "172c0207a5e00d4e352ae368aeee53e08b98d61b49a86aed096e52f24530dc0e"
   license "MIT"
 
   livecheck do
@@ -62,8 +62,8 @@ class Lintro < Formula
   end
 
   resource "coverage" do
-    url "https://files.pythonhosted.org/packages/11/43/3e4ac666cc35f231fa70c94e9f38459299de1a152813f9d2f60fc5f3ecaf/coverage-7.13.3.tar.gz"
-    sha256 "f7f6182d3dfb8802c1747eacbfe611b669455b69b7c037484bb1efbbb56711ac"
+    url "https://files.pythonhosted.org/packages/24/56/95b7e30fa389756cb56630faa728da46a27b8c6eb46f9d557c68fff12b65/coverage-7.13.4.tar.gz"
+    sha256 "e5c8f6ed1e61a8b2dcdf31eb0b9bbf0130750ca79c1c49eb898e2ad86f5ccc91"
   end
 
   resource "coverage-badge" do
