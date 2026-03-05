@@ -82,22 +82,50 @@ install_local_formula() {
 	fi
 }
 
+# Resolve the CLI binary name for a formula
+# Some formulas install under a different binary name (e.g., lintro-bin -> lintro)
+# Usage: cmd=$(get_formula_command "lintro-bin")
+get_formula_command() {
+	local formula="$1"
+	local cellar_bin
+	cellar_bin="$(brew --cellar)/$formula"
+
+	# Find the actual binary in the formula's Cellar bin directory
+	if [[ -d "$cellar_bin" ]]; then
+		local bin_dir
+		bin_dir=$(find "$cellar_bin" -maxdepth 2 -type d -name bin | head -1)
+		if [[ -n "$bin_dir" ]]; then
+			local binary
+			binary=$(find "$bin_dir" -maxdepth 1 -type f -perm +111 | head -1)
+			if [[ -n "$binary" ]]; then
+				basename "$binary"
+				return 0
+			fi
+		fi
+	fi
+
+	# Fall back to formula name
+	echo "$formula"
+}
+
 # Verify a formula installation works
 # Usage: verify_formula "lintro"
 verify_formula() {
 	local formula="$1"
+	local cmd
+	cmd=$(get_formula_command "$formula")
 
-	if ! command -v "$formula" >/dev/null 2>&1; then
-		log_error "$formula command not found after install"
+	if ! command -v "$cmd" >/dev/null 2>&1; then
+		log_error "$cmd command not found after install (formula: $formula)"
 		return 1
 	fi
 
-	log_info "Running $formula --version"
-	if "$formula" --version; then
-		log_success "$formula verified successfully"
+	log_info "Running $cmd --version"
+	if "$cmd" --version; then
+		log_success "$formula ($cmd) verified successfully"
 		return 0
 	else
-		log_error "$formula --version failed"
+		log_error "$cmd --version failed"
 		return 1
 	fi
 }
