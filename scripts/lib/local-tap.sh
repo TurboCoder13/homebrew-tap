@@ -82,22 +82,46 @@ install_local_formula() {
 	fi
 }
 
+# Resolve the installed binary path for a formula
+# Some formulas install under a different binary name (e.g., lintro-bin -> lintro)
+# Returns the absolute path to the binary, or the formula name as fallback
+# Usage: cmd=$(get_formula_command "lintro-bin")
+get_formula_command() {
+	local formula="$1"
+	local prefix
+	prefix="$(brew --prefix "$formula" 2>/dev/null)" || true
+
+	if [[ -n "$prefix" && -d "$prefix/bin" ]]; then
+		local binary
+		binary=$(find "$prefix/bin" -maxdepth 1 \( -type f -o -type l \) -perm -111 -print -quit)
+		if [[ -n "$binary" ]]; then
+			echo "$binary"
+			return 0
+		fi
+	fi
+
+	# Fall back to formula name
+	echo "$formula"
+}
+
 # Verify a formula installation works
 # Usage: verify_formula "lintro"
 verify_formula() {
 	local formula="$1"
+	local installed_cmd
+	installed_cmd=$(get_formula_command "$formula")
 
-	if ! command -v "$formula" >/dev/null 2>&1; then
-		log_error "$formula command not found after install"
+	if [[ ! -x "$installed_cmd" ]]; then
+		log_error "No executable found after install (formula: $formula, expected: $installed_cmd)"
 		return 1
 	fi
 
-	log_info "Running $formula --version"
-	if "$formula" --version; then
-		log_success "$formula verified successfully"
+	log_info "Running $installed_cmd --version"
+	if "$installed_cmd" --version; then
+		log_success "$formula ($(basename "$installed_cmd")) verified successfully"
 		return 0
 	else
-		log_error "$formula --version failed"
+		log_error "$installed_cmd --version failed"
 		return 1
 	fi
 }
