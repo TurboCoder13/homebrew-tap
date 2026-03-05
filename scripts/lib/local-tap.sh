@@ -87,20 +87,15 @@ install_local_formula() {
 # Usage: cmd=$(get_formula_command "lintro-bin")
 get_formula_command() {
 	local formula="$1"
-	local cellar_bin
-	cellar_bin="$(brew --cellar)/$formula"
+	local prefix
+	prefix="$(brew --prefix "$formula" 2>/dev/null)" || true
 
-	# Find the actual binary in the formula's Cellar bin directory
-	if [[ -d "$cellar_bin" ]]; then
-		local bin_dir
-		bin_dir=$(find "$cellar_bin" -maxdepth 2 -type d -name bin -print -quit)
-		if [[ -n "$bin_dir" ]]; then
-			local binary
-			binary=$(find "$bin_dir" -maxdepth 1 -type f -perm -111 -print -quit)
-			if [[ -n "$binary" ]]; then
-				basename "$binary"
-				return 0
-			fi
+	if [[ -d "$prefix/bin" ]]; then
+		local binary
+		binary=$(find "$prefix/bin" -maxdepth 1 \( -type f -o -type l \) -perm -111 -print -quit)
+		if [[ -n "$binary" ]]; then
+			basename "$binary"
+			return 0
 		fi
 	fi
 
