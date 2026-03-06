@@ -9,8 +9,8 @@ class Lintro < Formula
 
   desc "Unified CLI tool for code formatting, linting, and quality assurance"
   homepage "https://github.com/lgtm-hq/py-lintro"
-  url "https://files.pythonhosted.org/packages/a4/ac/0189ecd62a8dc88ff91143b376d71765dd970b2ef4b3a71e79494077da1e/lintro-0.52.10.tar.gz"
-  sha256 "ffb7742ed40fe6c07e0276e450802ed8c11b76d921052aa62e81df0b1fedb880"
+  url "https://files.pythonhosted.org/packages/de/8b/817f580442fb76bf9773b32d0ed30e9c3dfc825b1373c32fdafcc994597e/lintro-0.52.11.tar.gz"
+  sha256 "744cc10bcea75a8c2e67823befaaa621cc4f1c84550e28818365b6b1dc08b280"
   license "MIT"
 
   livecheck do
@@ -142,8 +142,8 @@ class Lintro < Formula
   end
 
   resource "platformdirs" do
-    url "https://files.pythonhosted.org/packages/1b/04/fea538adf7dbbd6d186f551d595961e564a3b6715bdf276b477460858672/platformdirs-4.9.2.tar.gz"
-    sha256 "9a33809944b9db043ad67ca0db94b14bf452cc6aeaac46a88ea55b26e2e9d291"
+    url "https://files.pythonhosted.org/packages/19/56/8d4c30c8a1d07013911a8fdbd8f89440ef9f08d07a1b50ab8ca8be5a20f9/platformdirs-4.9.4.tar.gz"
+    sha256 "1ec356301b7dc906d83f371c8f487070e99d3ccf9e501686456394622a01a934"
   end
 
   resource "pydantic" do
