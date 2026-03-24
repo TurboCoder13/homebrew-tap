@@ -9,8 +9,8 @@ class Lintro < Formula
 
   desc "Unified CLI tool for code formatting, linting, and quality assurance"
   homepage "https://github.com/lgtm-hq/py-lintro"
-  url "https://files.pythonhosted.org/packages/6f/49/eb17468b62cc8bb209248b11db518ea8c11f62f0de3dab9f8356b473868b/lintro-0.55.0.tar.gz"
-  sha256 "bcc898f881e33883ca1c77a07daca908d508476566b5e90432c5ea1b27a4d4e8"
+  url "https://files.pythonhosted.org/packages/63/a0/b08985cac53669912f2ff7a870793f6f2a0a3524059e4fff650f5f865c8b/lintro-0.56.0.tar.gz"
+  sha256 "0e5dde962fecd80bf81dc2613093322624bbe7a92cf861524ef9a02df36cbbb0"
   license "MIT"
 
   livecheck do
@@ -47,8 +47,8 @@ class Lintro < Formula
   end
 
   resource "anyio" do
-    url "https://files.pythonhosted.org/packages/96/f0/5eb65b2bb0d09ac6776f2eb54adee6abe8228ea05b20a5ad0e4945de8aac/anyio-4.12.1.tar.gz"
-    sha256 "41cfcc3a4c85d3f05c932da7c26d0201ac36f72abd4435ba90d0464a3ffed703"
+    url "https://files.pythonhosted.org/packages/19/14/2c5dd9f512b66549ae92767a9c7b330ae88e1932ca57876909410251fe13/anyio-4.13.0.tar.gz"
+    sha256 "334b70e641fd2221c1505b3890c69882fe4a2df910cba14d97019b90b24439dc"
   end
 
   resource "certifi" do
